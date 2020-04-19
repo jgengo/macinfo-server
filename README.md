@@ -1,3 +1,18 @@
+<h1 align="center"><code>MacInfo Server</code></h1>
+
+<div align="center">
+  <sub>Created by <a href="https://github.com/jgengo">Jordane Gengo (Titus)</a></sub>
+  <sub>Highly inspired by <a href="#">MacReport (clem@42)</a> and <a href="#">MaxReport (max c.)</a></sub>
+</div>
+<div align="center">
+  <sub>From <a href="https://hive.fi">Hive Helsinki</a></sub>
+</div>
+
+---
+
+# WORK IN PROGRESS
+
+
 # README
 
 This README would normally document whatever steps are necessary to get the

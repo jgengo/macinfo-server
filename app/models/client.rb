@@ -1,10 +1,8 @@
 class Client < ApplicationRecord
-    has_many :infos
-    has_one :os
+	belongs_to :os, optional: true
 
-    def show
-        @client = Client.find_by(hostname: params[:hostname])
-        render json: {error: "client not found"}.to_json, status: 400 unless @client
+	has_many :clients_sensors
+	has_many :sensors, through: :clients_sensors
 
-    end
+    has_secure_token
 end

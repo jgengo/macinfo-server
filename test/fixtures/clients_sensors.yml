@@ -1,13 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  sensor: one
   client: one
-  uptime: 1
-  os_version: MyString
-  os_version_build: MyString
 
 two:
+  sensor: two
   client: two
-  uptime: 1
-  os_version: MyString
-  os_version_build: MyString
