@@ -3,6 +3,8 @@ class SyncController < ApplicationController
     def create 
         @client = Client.find_by(hostname: params[:hostname])
         
+        Sync.create(hostname: params[:hostname], data: params)
+
         if @client
             return render json: {"error": "forbidden"}, status: 403 unless @client.token == params[:token]
 
