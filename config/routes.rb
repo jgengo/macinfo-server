@@ -3,4 +3,10 @@ Rails.application.routes.draw do
 
   resources :sync, only: :create
 
+  namespace :api do
+  namespace :v1 do
+    resources :clients, only: [:show, :index]
+  end
+end
+
 end
