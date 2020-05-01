@@ -5,7 +5,10 @@ Rails.application.routes.draw do
 
   namespace :api do
   namespace :v1 do
-    resources :clients, only: [:show, :index]
+    resources :clients, only: [:show, :index] do 
+    	resources :devices, only: [:index]
+    	resources :sensors, only: [:index]
+    end
   end
 end
 

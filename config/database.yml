@@ -3,15 +3,17 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: db
-  username: postgres
+  username: macinfo
   password:
 
 development:
   <<: *default
+  host:
   database: macinfo_dev
 
 test:
   <<: *default
+  host:
   database: macinfo_server_test
 
 production:
