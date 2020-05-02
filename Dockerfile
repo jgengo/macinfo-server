@@ -1,6 +1,6 @@
 FROM ruby:alpine
 
-RUN apk update && apk add build-base nodejs postgresql-dev tzdata
+RUN apk update && apk add build-base nodejs postgresql-dev tzdata bash
 
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
@@ -11,8 +11,10 @@ WORKDIR /project
 
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler
-RUN bundle install
+RUN bundle install --without development test
 
 COPY . .
+
+RUN bundle exec whenever -w
 
 CMD ["rails", "server", "-b=0.0.0.0"]
