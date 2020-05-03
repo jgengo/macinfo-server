@@ -8,7 +8,7 @@ class Sync < ApplicationRecord
 
 		c1_users_connected = Client.where('hostname like ?', "c1%").where.not(active_user: "").count
 		c2_users_connected = Client.where('hostname like ?', "c2%").where.not(active_user: "").count
-		c3_users_connected = Client.where('hostname like ?', "c2%").where.not(active_user: "").count
+		c3_users_connected = Client.where('hostname like ?', "c3%").where.not(active_user: "").count
 
 		mac_alive = c1_mac_alive + c2_mac_alive + c3_mac_alive
 		users_connected = c1_users_connected + c2_users_connected + c3_users_connected
