@@ -1,4 +1,4 @@
-FROM ruby:alpine
+FROM ruby:2.7.1-alpine
 
 RUN apk update && apk add build-base nodejs postgresql-dev tzdata bash
 
@@ -15,6 +15,6 @@ RUN bundle install --without development test
 
 COPY . .
 
-RUN bundle exec whenever -w
+RUN whenever -w
 
 CMD ["./startup.sh"]
