@@ -17,4 +17,4 @@ COPY . .
 
 RUN bundle exec whenever -w
 
-CMD ["rails", "server", "-b=0.0.0.0"]
+CMD ["./startup.sh"]
