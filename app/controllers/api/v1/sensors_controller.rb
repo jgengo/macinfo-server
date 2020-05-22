@@ -8,7 +8,7 @@ class Api::V1::SensorsController < ApplicationController
             return
         end
 
-    	@sensors = @client.sensors.where('clients_sensors.created_at > ?', Time.zone.now - 10.seconds).select(:name, :celsius).as_json(except: :id)
+    	@sensors = @client.sensors.where('clients_sensors.created_at > ?', Time.zone.now - 1.minutes).select(:name, :celsius).as_json(except: :id)
 
     	render json: @sensors, status: 200
     end
