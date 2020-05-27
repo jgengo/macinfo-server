@@ -48,7 +48,7 @@ class Client < ApplicationRecord
     end
 
     def call_cluster_map
-        uri = URI('http://docker.for.mac.localhost:3030/')
+        uri = URI('http://docker-1.hive.fi:5006/webhook/locations')
         http = Net::HTTP.new(uri.host, uri.port)
         req = Net::HTTP::Post.new(uri.path, {'Content-Type' =>'application/json', 'Authorization' => 'XXXXXXXXXXXXXXXX'})
         req.body = { hostname: self.hostname, login: self.active_user, kind: self.active_user != "" ? "create" : "close" }.to_json
