@@ -1,7 +1,19 @@
-version: '3'
+version: "3.5"
+
+x-common:
+  &x-common
+
+  logging:
+    options:
+      max-file: "5"
+      max-size: 10m
+
+  networks:
+    - macinfo
 
 services:
   db:
+    <<: *x-common
     image: 'postgres:12-alpine'
     container_name: 'macinfo_db'
     volumes:
@@ -12,6 +24,7 @@ services:
       - '.env'
 
   redis:
+    <<: *x-common
     image: 'redis:5-alpine'
     container_name: 'macinfo_redis'
     command: redis-server
@@ -23,13 +36,14 @@ services:
       - '.env'
 
   web:
+    <<: *x-common
     container_name: 'macinfo_api'
     depends_on:
       - 'db'
       - 'redis'
     build: .
     ports:
-      - '3000:3000'
+      - '3001:3000'
     volumes:
       - '.:/project'
     env_file:
