@@ -6,6 +6,11 @@ class SyncController < ApplicationController
         Sync.create(hostname: params[:hostname], data: params)
 
         if @client
+            if @client.token == ""
+                @client.regenerate_token
+                return render json: {"token": @client.token}, status: 201
+            end
+
             return render json: {"error": "forbidden"}, status: 403 unless @client.token == params[:token]
 
             @client.sync_save(params)
