@@ -38,7 +38,8 @@ class Client < ApplicationRecord
 
         params[:sensors].each do |sensor|
             @sensor  = Sensor.find_or_create_by!(name: sensor['name'])
-            csensor = ClientsSensor.create!(sensor_id: @sensor.id, client_id: self.id, celsius: sensor['celsius'])
+            csensor = ClientsSensor.find_or_create_by!(sensor_id: @sensor.id, client_id: self.id)
+            csensor.update(celsius: sensor['celsius'])
         end
 
         params[:usb_devices].each do |device|
@@ -55,5 +56,4 @@ class Client < ApplicationRecord
         res = http.request(req)
         puts res.body
     end
-
 end

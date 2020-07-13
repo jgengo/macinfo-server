@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_070508) do
   create_table "clients_sensors", force: :cascade do |t|
     t.bigint "sensor_id", null: false
     t.bigint "client_id", null: false
-    t.integer "celsius", null: false
+    t.integer "celsius"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_clients_sensors_on_client_id"

@@ -1,7 +1,7 @@
 class Sync < ApplicationRecord
 
 	def self.push_to_influxdb
-
+		return unless Rails.env.production?
 		c1_mac_alive = Sync.where('hostname like ? and created_at > ?', "c1%", Time.zone.now - 2.minutes).count('distinct hostname')
 		c2_mac_alive = Sync.where('hostname like ? and created_at > ?', "c2%", Time.zone.now - 2.minutes).count('distinct hostname')
 		c3_mac_alive = Sync.where('hostname like ? and created_at > ?', "c3%", Time.zone.now - 2.minutes).count('distinct hostname')
@@ -20,10 +20,7 @@ class Sync < ApplicationRecord
 			{ series: "macs", tags: { cluster: "c3" }, values: { mac_alive: c3_mac_alive, users_connected: c3_users_connected } },
 		]
 
-		puts data 
-
 		client = InfluxDB::Rails.client
-
 		client.write_points(data)
 	end
 

@@ -3,7 +3,7 @@ class CreateClientsSensors < ActiveRecord::Migration[6.0]
     create_table :clients_sensors do |t|
       t.references 		:sensor, 	null: false, foreign_key: true
       t.references 		:client, 	null: false, foreign_key: true
-      t.integer 		:celsius, 	null: false
+      t.integer 		  :celsius, null: true
       t.timestamps
     end
   end

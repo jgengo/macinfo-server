@@ -1,0 +1,53 @@
+version: "3.5"
+
+x-common:
+  &x-common
+
+  logging:
+    options:
+      max-file: "5"
+      max-size: 10m
+
+services:
+  db:
+    <<: *x-common
+    image: 'postgres:12-alpine'
+    container_name: 'macinfo_db'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+    env_file:
+      - '.env.dev'
+
+  redis:
+    <<: *x-common
+    image: 'redis:5-alpine'
+    container_name: 'macinfo_redis'
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+    env_file:
+      - '.env.dev'
+
+  web:
+    <<: *x-common
+    container_name: 'macinfo_api'
+    depends_on:
+      - 'db'
+      - 'redis'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/project'
+    env_file:
+      - '.env.dev'
+    environment:
+      - RUBYOPT=-W:no-deprecated -W:no-experimental
+
+volumes:
+  redis:
+  postgres:
