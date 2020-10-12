@@ -16,6 +16,9 @@ class Client < ApplicationRecord
     validates_presence_of   :hostname
     validates_presence_of   :uuid
 
+    before_destroy :destroy_related_sync
+
+
     has_secure_token
 
     after_commit :call_cluster_map, if: -> { self.saved_change_to_active_user? }
@@ -46,6 +49,10 @@ class Client < ApplicationRecord
             @device  = Device.find_or_create_by!(vendor: device['vendor'], model: device['model'])
             cdevice = ClientsDevice.create!(device_id: @device.id, client_id: self.id)
         end
+    end
+
+    def destroy_related_sync
+        Sync.where(hostname: self.hostname).destroy_all
     end
 
     def call_cluster_map
