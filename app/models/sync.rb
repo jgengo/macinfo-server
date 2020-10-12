@@ -1,5 +1,38 @@
 class Sync < ApplicationRecord
 
+	after_create :propagate_info 
+
+	def propagate_info
+		@client = Client.find_by(hostname: self.hostname)
+
+		if @client and @client.token == self.data["token"]
+			params = JSON.parse(self.data.to_json, symbolize_names: true)
+
+			os = Os.find_or_create_by!(version: params[:os_version][:version], build: params[:os_version][:build])
+            
+			client_info = {
+				os_id: os.id,
+				uptime: params[:uptime],
+				active_user: params[:active_user],
+				uuid: params[:uuid]
+			}
+	
+			@client.update(client_info)
+	
+			params[:sensors].each do |sensor|
+				@sensor  = Sensor.find_or_create_by!(name: sensor[:name])
+				csensor = ClientsSensor.find_or_create_by!(sensor_id: @sensor.id, client_id: @client.id)
+				csensor.update(celsius: sensor[:celsius])
+			end
+
+			params[:usb_devices].each do |device|
+				@device  = Device.find_or_create_by!(vendor: device[:vendor], model: device[:model])
+				cdevice = ClientsDevice.create!(device_id: @device.id, client_id: @client.id)
+			end
+		end
+
+	end
+
 	def self.push_to_influxdb
 		return unless Rails.env.production?
 		c1_mac_alive = Sync.where('hostname like ? and created_at > ?', "c1%", Time.zone.now - 2.minutes).count('distinct hostname')
