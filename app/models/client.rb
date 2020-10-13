@@ -43,8 +43,6 @@ class Client < ApplicationRecord
         active_user_locs = Location.where(user: self.active_user, end_at: nil)
         active_macs_locs = self.locations.where(end_at: nil)
 
-        puts "===\nactive_user_locs: #{active_user_locs}\nactive_macs_locs: #{active_macs_locs}"
-
         if active_macs_locs.count > 0
             SlackIt.new.report("create_location for #{self.active_user} @ #{self.hostname} already has active locations for: #{active_macs_locs.pluck(:user).join(", ")}").deliver
             active_macs_locs.update_all(end_at: Time.zone.now)
