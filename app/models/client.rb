@@ -39,34 +39,19 @@ class Client < ApplicationRecord
         res = http.request(req)
     end
 
-    def create_location
-        active_user_locs = Location.where(user: self.active_user, end_at: nil)
-        active_macs_locs = self.locations.where(end_at: nil)
-
-        if active_macs_locs.count > 0
-            SlackIt.new.report("create_location for #{self.active_user} @ #{self.hostname} already has active locations for: #{active_macs_locs.pluck(:user).join(", ")}").deliver
-            active_macs_locs.update_all(end_at: Time.zone.now)
-        end
-
-        if active_user_locs.count > 0 
-            SlackIt.new.report("create_location for #{self.active_user}, but they already has active locations here: #{active_user_locs.joins(:client).pluck(:hostname).join(", ")}").deliver
-        end
-
-        self.locations.create!(user: self.active_user, begin_at: Time.zone.now)
-    end
-
     def terminate_location
         active_macs_locs = self.locations.where(end_at: nil)
 
         if active_macs_locs.count > 1
-            SlackIt.new.report("terminate_location for #{self.active_user} @ #{self.hostname} has more than one active location for (#{active_macs_locs.pluck(:user).join(", ")})").deliver
+            SlackIt.new.report("`#{self.active_user}` is connecting to `#{self.hostname}` but this iMacs has more than one active location for `#{active_macs_locs.pluck(:user).join("`, `")}`.").deliver
         end
+
         active_macs_locs.update_all(end_at: Time.zone.now)
     end
 
     def create_or_terminate_location
         if self.active_user != ""
-            create_location
+            self.locations.create!(user: self.active_user, begin_at: Time.zone.now)
         else
             terminate_location
         end

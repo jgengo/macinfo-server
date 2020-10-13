@@ -8,11 +8,11 @@ class SlackIt
         params = {
             attachments: [
                 {
-                    fallback: "macinfo report",
+                    fallback: "MacInfo report",
                     color: "warning",
                     fields: [
                         {
-                            title: "macinfo",
+                            title: "MacInfo report",
                             value: message,
                         }
                     ]
