@@ -7,6 +7,7 @@ ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 
 RUN mkdir /project
+RUN echo "IRB.conf[:USE_MULTILINE] = false" > ~/.irbrc
 WORKDIR /project
 
 COPY Gemfile Gemfile.lock ./
