@@ -26,6 +26,8 @@ module MacinfoServer
 
     Raven.configure do |config|
       config.dsn = ENV['SENTRY_DSN']
+      config.processors -= [Raven::Processor::PostData] # Do this to send POST data
+      config.processors -= [Raven::Processor::Cookies] # Do this to send cookies by default
     end    
 
     # Settings in config/environments/* take precedence over those specified here.
