@@ -1,6 +1,7 @@
 class SyncController < ApplicationController
 
     def create 
+        return render json: {"error": "hostname missing"}, status: 422 if params[:hostname].blank?
         @client = Client.find_by(hostname: params[:hostname])
         
         Sync.create!(hostname: params[:hostname], data: params)

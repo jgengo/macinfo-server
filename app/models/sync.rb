@@ -23,12 +23,12 @@ class Sync < ApplicationRecord
 				@sensor  = Sensor.find_or_create_by!(name: sensor[:name])
 				csensor = ClientsSensor.find_or_create_by!(sensor_id: @sensor.id, client_id: @client.id)
 				csensor.update(celsius: sensor[:celsius])
-			end
+			end unless params[:sensors].blank?
 
 			params[:usb_devices].each do |device|
 				@device  = Device.find_or_create_by!(vendor: device[:vendor], model: device[:model])
 				cdevice = ClientsDevice.create!(device_id: @device.id, client_id: @client.id)
-			end
+			end unless params[:usb_devices].blank?
 		end
 
 	end
