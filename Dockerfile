@@ -1,6 +1,6 @@
 FROM ruby:2.7.1-alpine
 
-RUN apk update && apk add build-base nodejs postgresql-dev tzdata bash
+RUN apk update && apk add build-base nodejs postgresql-dev tzdata bash shared-mime-info
 
 ARG RAILS_ENV
 ENV RAILS_SERVE_STATIC_FILES true

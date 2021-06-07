@@ -86,7 +86,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
@@ -133,6 +135,7 @@ GEM
       ffi (~> 1.0)
     sentry-raven (3.1.1)
       faraday (>= 1.0)
+    slack-notifier (2.4.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -168,6 +171,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.2)
   sentry-raven
+  slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
   whenever
