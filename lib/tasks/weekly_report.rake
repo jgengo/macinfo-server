@@ -20,7 +20,7 @@ namespace :weekly_report do
 
     top = loc.group(:user).count.sort_by { |_, v| v }.reverse
 
-    notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL'], channel: "#testing2", username: "macInfo"
+    notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL'], channel: "#statistics", username: "macInfo"
     clock = ":clock:#{Time.at(loc_sum/loc_time.count).utc.strftime("%k")}:"
     blocks = [
       { "type": "header", "text": { "type": "plain_text", "text": "Cluster usage last week", "emoji": true } },
