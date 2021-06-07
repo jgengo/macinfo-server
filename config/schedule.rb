@@ -9,3 +9,7 @@ end
 every 1.day, at: '4:30 am' do
   runner "Sync.delete_old_entries"
 end
+
+every :monday, at: "10:00 PM" do
+  rake "weekly_report:slack_cluster_usage"
+end
