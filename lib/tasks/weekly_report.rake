@@ -18,11 +18,7 @@ namespace :weekly_report do
 
     pct_inc = (uniq_loc - prev_uniq_loc) / prev_uniq_loc.to_f * 100
 
-    puts "Previous week: #{prev_uniq_loc} // This week: #{uniq_loc} (#{sprintf("%+d%%", pct_inc)})"
-    puts "AVG Time: #{loc_avg}"
-
     top = loc.group(:user).count.sort_by { |_, v| v }.reverse
-    top3 = (0..3).map { |x| "*#{top[x][0]}* with #{top[x][1]} locations" }
 
     notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL'], channel: "#testing2", username: "macInfo"
 
@@ -40,22 +36,22 @@ namespace :weekly_report do
       {
         "type": "context",
         "elements": [
-          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[0][0]}.jpg", "alt_text": "pic" },
-          { "type": "mrkdwn", "text": ":first_place_medal: *#{top3[0][0]}* with #{top3[0][1]} locations" }
+          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top[0][0]}.jpg", "alt_text": "pic" },
+          { "type": "mrkdwn", "text": ":first_place_medal: *#{top[0][0]}* with #{top[0][1]} locations" }
         ]
       },
       {
         "type": "context",
         "elements": [
-          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[1][0]}.jpg", "alt_text": "pic" },
-          { "type": "mrkdwn", "text": ":second_place_medal: *#{top3[1][0]}* with #{top3[1][1]} locations"}
+          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top[1][0]}.jpg", "alt_text": "pic" },
+          { "type": "mrkdwn", "text": ":second_place_medal: *#{top[1][0]}* with #{top[1][1]} locations"}
         ]
       },
       {
         "type": "context",
         "elements": [
-          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[2][0]}.jpg", "alt_text": "pic" },
-          { "type": "mrkdwn","text": ":third_place_medal: *#{top3[2][0]}* with #{top3[2][1]} locations" }
+          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top[2][0]}.jpg", "alt_text": "pic" },
+          { "type": "mrkdwn","text": ":third_place_medal: *#{top[2][0]}* with #{top[2][1]} locations" }
         ]
       }
     ]
