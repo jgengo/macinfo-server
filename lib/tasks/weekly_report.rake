@@ -26,41 +26,39 @@ namespace :weekly_report do
 
     notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL'], channel: "#testing2", username: "macInfo"
 
-    blocks = {
-      "blocks": [
-        { "type": "header", "text": { "type": "plain_text", "text": "Cluster usage last week", "emoji": true } },
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": ":busts_in_silhouette: *#{uniq_loc}* students connected (*#{sprintf("%+d", pct_inc)}%* compare to previous week)"
-          }
-        },
-        { "type": "section", "text": { "type": "mrkdwn", "text": ":clock3: Average location duration last week is *#{loc_avg}*" } },
-        { "type": "header", "text": { "type": "plain_text", "text": "Most active students last week", "emoji": true } },
-        {
-          "type": "context",
-          "elements": [
-            { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[0][0]}.jpg", "alt_text": "pic" },
-            { "type": "mrkdwn", "text": ":first_place_medal: *#{top3[0][0]}* with #{top3[0][1]} locations" }
-          ]
-        },
-        {
-          "type": "context",
-          "elements": [
-            { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[1][0]}.jpg", "alt_text": "pic" },
-            { "type": "mrkdwn", "text": ":second_place_medal: *#{top3[1][0]}* with #{top3[1][1]} locations"}
-          ]
-        },
-        {
-          "type": "context",
-          "elements": [
-            { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[2][0]}.jpg", "alt_text": "pic" },
-            { "type": "mrkdwn","text": ":third_place_medal: *#{top3[2][0]}* with #{top3[2][1]} locations" }
-          ]
+    blocks = [
+      { "type": "header", "text": { "type": "plain_text", "text": "Cluster usage last week", "emoji": true } },
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": ":busts_in_silhouette: *#{uniq_loc}* students connected (*#{sprintf("%+d", pct_inc)}%* compare to previous week)"
         }
-      ]
-    }
+      },
+      { "type": "section", "text": { "type": "mrkdwn", "text": ":clock3: Average location duration last week is *#{loc_avg}*" } },
+      { "type": "header", "text": { "type": "plain_text", "text": "Most active students last week", "emoji": true } },
+      {
+        "type": "context",
+        "elements": [
+          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[0][0]}.jpg", "alt_text": "pic" },
+          { "type": "mrkdwn", "text": ":first_place_medal: *#{top3[0][0]}* with #{top3[0][1]} locations" }
+        ]
+      },
+      {
+        "type": "context",
+        "elements": [
+          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[1][0]}.jpg", "alt_text": "pic" },
+          { "type": "mrkdwn", "text": ":second_place_medal: *#{top3[1][0]}* with #{top3[1][1]} locations"}
+        ]
+      },
+      {
+        "type": "context",
+        "elements": [
+          { "type": "image", "image_url": "https://cdn.intra.42.fr/users/small_#{top3[2][0]}.jpg", "alt_text": "pic" },
+          { "type": "mrkdwn","text": ":third_place_medal: *#{top3[2][0]}* with #{top3[2][1]} locations" }
+        ]
+      }
+    ]
 
     notifier.post(blocks: blocks)
   end
