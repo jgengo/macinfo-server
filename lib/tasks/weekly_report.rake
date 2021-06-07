@@ -35,7 +35,7 @@ namespace :weekly_report do
         }
       },
       { "type": "section", "text": { "type": "mrkdwn", "text": "#{clock} Average location duration was *#{loc_avg}*" } },
-      { "type": "section", "text": { "type": "mrkdwn", "text": ":desktop_computer: *#{resp.first['cluster']}* was the cluster the most used" }},
+      { "type": "section", "text": { "type": "mrkdwn", "text": ":desktop_computer: cluster *#{resp.first['cluster']}* was the most used" } },
       { "type": "header", "text": { "type": "plain_text", "text": "Most active students last week", "emoji": true } },
       {
         "type": "context",
