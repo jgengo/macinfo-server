@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem "activesupport", ">= 6.0.3.1"
+gem "activerecord", ">= 6.0.3.5"
+gem "actionpack", ">= 6.0.3.7"
 
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'pg', '>= 0.18', '< 2.0'
