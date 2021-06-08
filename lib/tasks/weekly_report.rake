@@ -24,7 +24,7 @@ namespace :weekly_report do
     resp = ActiveRecord::Base.connection.exec_query(sql)
 
     notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK_URL'], channel: "#statistics", username: "macInfo"
-    clock = ":clock:#{Time.at(loc_sum/loc_time.count).utc.strftime("%k")}:"
+    clock = ":clock#{Time.at(loc_sum/loc_time.count).utc.strftime("%k").strip}:"
     blocks = [
       { "type": "header", "text": { "type": "plain_text", "text": "Cluster usage last week", "emoji": true } },
       {
