@@ -1,5 +1,6 @@
 FROM ruby:2.7.1-alpine
-ENV Europe/Helsinki
+
+ENV TZ Europe/Helsinki
 
 RUN apk update && apk add build-base nodejs postgresql-dev tzdata bash shared-mime-info
 
