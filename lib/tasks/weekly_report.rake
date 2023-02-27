@@ -6,7 +6,7 @@ namespace :weekly_report do
     week = (Time.zone.now - 7.days).beginning_of_day
     previous_week = week- 7.days
 
-    prev_loc = Location.where('begin_at > ? and begin_at < ?', previous_week, week)
+    prev_loc = Location.where.not(user: 'exam').where('begin_at > ? and begin_at < ?', previous_week, week)
     loc = Location.where('begin_at > ?', week)
 
     prev_uniq_loc = prev_loc.pluck(:user).uniq.count
